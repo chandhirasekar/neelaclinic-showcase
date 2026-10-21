@@ -1,0 +1,47 @@
+﻿@import "tailwindcss";
+
+:root {
+  --background: #F3F8FC;
+  --foreground: #0B2545;
+  --primary: #0A66B2;
+  --primary-deep: #084F8C;
+  --accent-leaf: #72A924;
+  --accent-fresh: #8CC43A;
+  --accent-dark: #3F7A12;
+  --card-border: #D5E3F0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #08192B;
+    --foreground: #F1F5F9;
+  }
+}
+
+html, body {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
