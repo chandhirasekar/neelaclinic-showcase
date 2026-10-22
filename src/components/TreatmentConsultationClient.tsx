@@ -43,85 +43,88 @@ export const TreatmentConsultationClient: React.FC<TreatmentConsultationClientPr
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF8F5] dark:bg-[#0B0F14] text-stone-900 dark:text-stone-100 transition-colors font-sans">
       {/* Top Editorial Bar */}
-      <header className="sticky top-0 z-30 bg-[#FAF8F5]/95 dark:bg-[#0B0F14]/95 backdrop-blur-md border-b border-[#E8E2D8] dark:border-stone-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
-          {/* Clinic Brand & Back to Treatment List */}
-          <div className="flex items-center gap-3">
-            <Link
-              href={`/${category}`}
-              className="p-2 rounded-xl bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 transition-colors"
-              title={`Back to ${isHair ? 'Hair' : 'Skin'} Treatments`}
-            >
-              <ArrowLeft className="w-4 h-4 text-[#C5A880]" />
-            </Link>
+      <header className="sticky top-0 z-30 bg-[#FAF8F5]/95 dark:bg-[#0B0F14]/95 backdrop-blur-md border-b border-[#E8E2D8] dark:border-stone-800 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+          {/* Row 1: Brand & Back on Left, Prescribe Note on Right */}
+          <div className="flex items-center justify-between gap-3 w-full">
+            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+              <Link
+                href={`/${category}`}
+                className="p-2 rounded-xl bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 transition-colors shrink-0 shadow-sm"
+                title={`Back to ${isHair ? 'Hair' : 'Skin'} Treatments`}
+              >
+                <ArrowLeft className="w-4 h-4 text-[#C5A880]" />
+              </Link>
 
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1 border border-stone-200/80 dark:border-stone-700/80 shadow-sm flex items-center justify-center shrink-0 overflow-hidden group-hover:scale-105 transition-transform">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/logo-icon.svg"
-                  alt="Nila Clinic Logo"
-                  className="w-full h-full object-contain block select-none"
-                />
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-serif-classic text-base sm:text-lg font-bold tracking-tight text-stone-900 dark:text-stone-100">
-                    Nila Clinic
-                  </span>
-                  <span className="text-[10px] tracking-widest uppercase font-semibold px-2 py-0.5 rounded-full bg-[#0F2E22] text-[#E8D7BE] border border-[#C5A880]/40 hidden sm:inline-flex">
-                    Tablet Consultation Suite
-                  </span>
+              <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1 border border-stone-200/80 dark:border-stone-700/80 shadow-sm flex items-center justify-center shrink-0 overflow-hidden group-hover:scale-105 transition-transform">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/logo-icon.svg"
+                    alt="Nila Clinic Logo"
+                    className="w-full h-full object-contain block select-none"
+                  />
                 </div>
-                <p className="text-[11px] text-stone-500 dark:text-stone-400">
-                  Aesthetic Dermatology & Trichology Excellence
-                </p>
-              </div>
-            </Link>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="font-serif-classic text-base sm:text-lg font-bold tracking-tight text-stone-900 dark:text-stone-100 whitespace-nowrap shrink-0">
+                      Nila Clinic
+                    </span>
+                    <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full bg-[#0F2E22] text-[#E8D7BE] border border-[#C5A880]/40 whitespace-nowrap shrink-0">
+                      Tablet Consultation Suite
+                    </span>
+                  </div>
+                  <p className="text-[10px] sm:text-[11px] text-stone-500 dark:text-stone-400 whitespace-nowrap">
+                    Aesthetic Dermatology & Trichology Excellence
+                  </p>
+                </div>
+              </Link>
+            </div>
+
+            {/* Prescribe Note Button - Top Right */}
+            <div className="flex items-center shrink-0">
+              <button
+                type="button"
+                onClick={handleOpenConsultation}
+                className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-bold bg-[#0F2E22] hover:bg-[#164231] text-[#E8D7BE] border border-[#C5A880]/40 shadow-sm active:scale-95 transition-all flex items-center gap-2 shrink-0 whitespace-nowrap"
+              >
+                <Stethoscope className="w-3.5 h-3.5 text-[#C5A880] shrink-0" />
+                <span>Prescribe Doctor Note</span>
+              </button>
+            </div>
           </div>
 
-          {/* Interactive Step Progress Rail */}
-          <nav aria-label="Consultation Steps" className="flex items-center gap-1.5 sm:gap-2 bg-stone-100/90 dark:bg-stone-900/90 p-1 sm:p-1.5 rounded-2xl border border-stone-200/90 dark:border-stone-800">
-            <Link
-              href="/"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium text-stone-600 dark:text-stone-400 hover:text-stone-950 transition-colors"
-            >
-              <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-[#C5A880] text-[#0F2E22]">
-                ✓
-              </span>
-              <span className="hidden md:inline">Intake (Step 1)</span>
-              <span className="md:hidden">Intake</span>
-            </Link>
-            <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
-            <Link
-              href={`/${category}`}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium text-stone-600 dark:text-stone-400 hover:text-stone-950 transition-colors"
-            >
-              <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-[#C5A880] text-[#0F2E22]">
-                ✓
-              </span>
-              <span className="hidden md:inline">Treatments (Step 2)</span>
-              <span className="md:hidden">Treatments</span>
-            </Link>
-            <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
-            <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50">
-              <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-[#C5A880] text-[#0F2E22]">
-                3
-              </span>
-              <span>Concerns & Outcomes</span>
-            </div>
-          </nav>
-
-          {/* Prescribe Note Button */}
-          <button
-            type="button"
-            onClick={handleOpenConsultation}
-            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#0F2E22] hover:bg-[#164231] text-[#E8D7BE] border border-[#C5A880]/40 shadow-sm active:scale-95 transition-all flex items-center gap-2"
-          >
-            <Stethoscope className="w-3.5 h-3.5 text-[#C5A880]" />
-            <span className="hidden sm:inline">Prescribe Doctor Note</span>
-            <span className="sm:hidden">Note</span>
-          </button>
+          {/* Row 2: Step-by-Step Progress Rail (Wrapped down & Centered) */}
+          <div className="flex justify-center w-full mt-2 sm:mt-2.5 pt-2 sm:pt-2.5 border-t border-[#E8E2D8]/60 dark:border-stone-800/60">
+            <nav aria-label="Consultation Steps" className="flex items-center gap-1.5 sm:gap-2.5 bg-stone-100/90 dark:bg-stone-900/90 p-1 sm:p-1.5 rounded-2xl border border-stone-200/90 dark:border-stone-800 shadow-sm">
+              <Link
+                href="/"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium text-stone-600 dark:text-stone-400 hover:text-stone-950 transition-colors whitespace-nowrap"
+              >
+                <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-[#C5A880] text-[#0F2E22] shrink-0">
+                  ✓
+                </span>
+                <span>Intake (Step 1)</span>
+              </Link>
+              <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
+              <Link
+                href={`/${category}`}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium text-stone-600 dark:text-stone-400 hover:text-stone-950 transition-colors whitespace-nowrap"
+              >
+                <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-[#C5A880] text-[#0F2E22] shrink-0">
+                  ✓
+                </span>
+                <span>Treatments (Step 2)</span>
+              </Link>
+              <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50 whitespace-nowrap">
+                <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-[#C5A880] text-[#0F2E22] shrink-0">
+                  3
+                </span>
+                <span>Concerns & Outcomes</span>
+              </div>
+            </nav>
+          </div>
         </div>
       </header>
 

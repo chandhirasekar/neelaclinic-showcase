@@ -19,65 +19,70 @@ export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF8F5] dark:bg-[#0B0F14] text-stone-900 dark:text-stone-100 transition-colors font-sans">
       {/* Editorial Luxury Top Bar */}
-      <header className="sticky top-0 z-30 bg-[#FAF8F5]/95 dark:bg-[#0B0F14]/95 backdrop-blur-md border-b border-[#E8E2D8] dark:border-stone-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
-          {/* Clinic Brand Crest */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white p-1 border border-stone-200/80 dark:border-stone-700/80 shadow-sm flex items-center justify-center shrink-0 overflow-hidden group-hover:scale-105 transition-transform">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/logo-icon.svg"
-                alt="Nila Clinic Logo"
-                className="w-full h-full object-contain block select-none"
-              />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-serif-classic text-base sm:text-lg font-bold tracking-tight text-stone-900 dark:text-stone-100">
-                  Nila Clinic
-                </span>
-                <span className="text-[10px] tracking-widest uppercase font-semibold px-2 py-0.5 rounded-full bg-[#0F2E22] text-[#E8D7BE] border border-[#C5A880]/40 hidden sm:inline-flex">
-                  Tablet Consultation Suite
-                </span>
+      <header className="sticky top-0 z-30 bg-[#FAF8F5]/95 dark:bg-[#0B0F14]/95 backdrop-blur-md border-b border-[#E8E2D8] dark:border-stone-800 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+          {/* Row 1: Brand Crest on Left, Admin on Right */}
+          <div className="flex items-center justify-between gap-3 w-full">
+            {/* Clinic Brand Crest */}
+            <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1 border border-stone-200/80 dark:border-stone-700/80 shadow-sm flex items-center justify-center shrink-0 overflow-hidden group-hover:scale-105 transition-transform">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo-icon.svg"
+                  alt="Nila Clinic Logo"
+                  className="w-full h-full object-contain block select-none"
+                />
               </div>
-              <p className="text-[11px] text-stone-500 dark:text-stone-400">
-                Aesthetic Dermatology & Trichology Excellence
-              </p>
-            </div>
-          </Link>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="font-serif-classic text-base sm:text-lg font-bold tracking-tight text-stone-900 dark:text-stone-100 whitespace-nowrap shrink-0">
+                    Nila Clinic
+                  </span>
+                  <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full bg-[#0F2E22] text-[#E8D7BE] border border-[#C5A880]/40 whitespace-nowrap shrink-0">
+                    Tablet Consultation Suite
+                  </span>
+                </div>
+                <p className="text-[10px] sm:text-[11px] text-stone-500 dark:text-stone-400 whitespace-nowrap">
+                  Aesthetic Dermatology & Trichology Excellence
+                </p>
+              </div>
+            </Link>
 
-          {/* Step Progress Rail */}
-          <nav aria-label="Consultation Steps" className="flex items-center gap-2 bg-stone-100/90 dark:bg-stone-900/90 p-1.5 rounded-2xl border border-stone-200/90 dark:border-stone-800">
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50">
-              <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-[#C5A880] text-[#0F2E22]">
-                1
-              </span>
-              <span>Patient Intake</span>
-            </div>
-            <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium text-stone-400">
-              <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400">
-                2
-              </span>
-              <span className="hidden sm:inline">Clinical Protocol</span>
-            </div>
-            <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium text-stone-400">
-              <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400">
-                3
-              </span>
-              <span className="hidden sm:inline">Concerns & Outcomes</span>
-            </div>
-          </nav>
+            {/* Admin Link - Top Right */}
+            <Link
+              href="/admin"
+              className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 transition-colors flex items-center gap-1.5 border border-stone-200 dark:border-stone-700 shrink-0 whitespace-nowrap shadow-sm"
+            >
+              <ShieldCheck className="w-4 h-4 text-[#8CC43A] shrink-0" />
+              <span className="font-semibold">Admin CMS</span>
+            </Link>
+          </div>
 
-          {/* Admin Link */}
-          <Link
-            href="/admin"
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 transition-colors flex items-center gap-1.5 border border-stone-200 dark:border-stone-700"
-          >
-            <ShieldCheck className="w-4 h-4 text-[#8CC43A]" />
-            <span className="hidden sm:inline">Admin CMS</span>
-          </Link>
+          {/* Row 2: Step-by-Step Progress Rail (Wrapped down & Centered) */}
+          <div className="flex justify-center w-full mt-2 sm:mt-2.5 pt-2 sm:pt-2.5 border-t border-[#E8E2D8]/60 dark:border-stone-800/60">
+            <nav aria-label="Consultation Steps" className="flex items-center gap-1.5 sm:gap-2.5 bg-stone-100/90 dark:bg-stone-900/90 p-1 sm:p-1.5 rounded-2xl border border-stone-200/90 dark:border-stone-800 shadow-sm">
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50 whitespace-nowrap">
+                <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-[#C5A880] text-[#0F2E22] shrink-0">
+                  1
+                </span>
+                <span>Patient Intake</span>
+              </div>
+              <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium text-stone-400 whitespace-nowrap">
+                <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400 shrink-0">
+                  2
+                </span>
+                <span>Clinical Protocol</span>
+              </div>
+              <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium text-stone-400 whitespace-nowrap">
+                <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400 shrink-0">
+                  3
+                </span>
+                <span>Concerns & Outcomes</span>
+              </div>
+            </nav>
+          </div>
         </div>
       </header>
 

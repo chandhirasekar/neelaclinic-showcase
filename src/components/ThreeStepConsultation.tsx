@@ -153,131 +153,131 @@ export const ThreeStepConsultation: React.FC<ThreeStepConsultationProps> = ({
   return (
     <div className="w-full flex-1 flex flex-col bg-[#FAF8F5] dark:bg-[#0B0F14] text-stone-900 dark:text-stone-100 transition-colors">
       {/* Editorial Luxury Top Bar & Step Progress Rail */}
-      <header className="sticky top-0 z-30 bg-[#FAF8F5]/95 dark:bg-[#0B0F14]/95 backdrop-blur-md border-b border-[#E8E2D8] dark:border-stone-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
-          {/* Clinic Brand Crest */}
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1 border border-stone-200/80 dark:border-stone-700/80 shadow-sm flex items-center justify-center shrink-0 overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/logo-icon.svg"
-                alt="Nila Clinic Logo"
-                className="w-full h-full object-contain block select-none"
-              />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-serif-classic text-sm sm:text-base font-bold tracking-tight text-stone-900 dark:text-stone-100">
-                  Nila Clinic
-                </span>
-                <span className="text-[10px] tracking-widest uppercase font-semibold px-2 py-0.5 rounded-full bg-[#0F2E22] text-[#E8D7BE] border border-[#C5A880]/40 hidden sm:inline-flex">
-                  Tablet Consultation Suite
-                </span>
+      <header className="sticky top-0 z-30 bg-[#FAF8F5]/95 dark:bg-[#0B0F14]/95 backdrop-blur-md border-b border-[#E8E2D8] dark:border-stone-800 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+          {/* Row 1: Brand Crest on Left, Prescribe Note on Right */}
+          <div className="flex items-center justify-between gap-3 w-full">
+            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1 border border-stone-200/80 dark:border-stone-700/80 shadow-sm flex items-center justify-center shrink-0 overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo-icon.svg"
+                  alt="Nila Clinic Logo"
+                  className="w-full h-full object-contain block select-none"
+                />
               </div>
-              <p className="text-[11px] text-stone-500 dark:text-stone-400">
-                Aesthetic Dermatology & Trichology Excellence
-              </p>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="font-serif-classic text-sm sm:text-base font-bold tracking-tight text-stone-900 dark:text-stone-100 whitespace-nowrap shrink-0">
+                    Nila Clinic
+                  </span>
+                  <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full bg-[#0F2E22] text-[#E8D7BE] border border-[#C5A880]/40 whitespace-nowrap shrink-0">
+                    Tablet Consultation Suite
+                  </span>
+                </div>
+                <p className="text-[10px] sm:text-[11px] text-stone-500 dark:text-stone-400 whitespace-nowrap">
+                  Aesthetic Dermatology & Trichology Excellence
+                </p>
+              </div>
+            </div>
+
+            {/* Doctor Note / Quick Prescribe Shortcut - Top Right */}
+            <div className="flex items-center shrink-0">
+              <button
+                type="button"
+                onClick={() =>
+                  onOpenConsultationModal(
+                    activeTreatment?.name || 'General Consultation',
+                    activeVariant?.name || 'Initial Assessment',
+                    activeVariant?.name
+                  )
+                }
+                className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-bold bg-[#0F2E22] hover:bg-[#164231] text-[#E8D7BE] border border-[#C5A880]/40 shadow-sm active:scale-95 transition-all flex items-center gap-2 shrink-0 whitespace-nowrap"
+              >
+                <Stethoscope className="w-3.5 h-3.5 text-[#C5A880] shrink-0" />
+                <span>Prescribe Doctor Note</span>
+              </button>
             </div>
           </div>
 
-          {/* Classical 3-Step Interactive Progress Rail */}
-          <nav
-            aria-label="Consultation Steps"
-            className="flex items-center gap-1.5 sm:gap-2.5 bg-stone-100/90 dark:bg-stone-900/90 p-1 sm:p-1.5 rounded-2xl border border-stone-200/90 dark:border-stone-800"
-          >
-            {/* Step 1 Pill */}
-            <button
-              type="button"
-              onClick={() => setCurrentStep(1)}
-              className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                currentStep === 1
-                  ? 'bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50'
-                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-950 dark:hover:text-stone-200'
-              }`}
+          {/* Row 2: Step-by-Step Progress Rail (Wrapped down & Centered) */}
+          <div className="flex justify-center w-full mt-2 sm:mt-2.5 pt-2 sm:pt-2.5 border-t border-[#E8E2D8]/60 dark:border-stone-800/60">
+            <nav
+              aria-label="Consultation Steps"
+              className="flex items-center gap-1.5 sm:gap-2.5 bg-stone-100/90 dark:bg-stone-900/90 p-1 sm:p-1.5 rounded-2xl border border-stone-200/90 dark:border-stone-800 shadow-sm"
             >
-              <span
-                className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold ${
+              {/* Step 1 Pill */}
+              <button
+                type="button"
+                onClick={() => setCurrentStep(1)}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                   currentStep === 1
-                    ? 'bg-[#C5A880] text-[#0F2E22]'
-                    : 'bg-stone-300 dark:bg-stone-700 text-stone-700 dark:text-stone-300'
+                    ? 'bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-950 dark:hover:text-stone-200'
                 }`}
               >
-                1
-              </span>
-              <span className="hidden md:inline">Patient Intake</span>
-              <span className="md:hidden">Focus</span>
-            </button>
+                <span
+                  className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${
+                    currentStep === 1
+                      ? 'bg-[#C5A880] text-[#0F2E22]'
+                      : 'bg-stone-300 dark:bg-stone-700 text-stone-700 dark:text-stone-300'
+                  }`}
+                >
+                  1
+                </span>
+                <span>Patient Intake</span>
+              </button>
 
-            <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
+              <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
 
-            {/* Step 2 Pill */}
-            <button
-              type="button"
-              onClick={() => setCurrentStep(2)}
-              className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                currentStep === 2
-                  ? 'bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50'
-                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-950 dark:hover:text-stone-200'
-              }`}
-            >
-              <span
-                className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold ${
+              {/* Step 2 Pill */}
+              <button
+                type="button"
+                onClick={() => setCurrentStep(2)}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                   currentStep === 2
-                    ? 'bg-[#C5A880] text-[#0F2E22]'
-                    : 'bg-stone-300 dark:bg-stone-700 text-stone-700 dark:text-stone-300'
+                    ? 'bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-950 dark:hover:text-stone-200'
                 }`}
               >
-                2
-              </span>
-              <span className="hidden md:inline">Clinical Protocol</span>
-              <span className="md:hidden">Treatments</span>
-            </button>
+                <span
+                  className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${
+                    currentStep === 2
+                      ? 'bg-[#C5A880] text-[#0F2E22]'
+                      : 'bg-stone-300 dark:bg-stone-700 text-stone-700 dark:text-stone-300'
+                  }`}
+                >
+                  2
+                </span>
+                <span>Clinical Protocol</span>
+              </button>
 
-            <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
+              <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
 
-            {/* Step 3 Pill */}
-            <button
-              type="button"
-              onClick={() => {
-                if (activeTreatment) setCurrentStep(3);
-              }}
-              className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                currentStep === 3
-                  ? 'bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50'
-                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-950 dark:hover:text-stone-200'
-              }`}
-            >
-              <span
-                className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold ${
+              {/* Step 3 Pill */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (activeTreatment) setCurrentStep(3);
+                }}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                   currentStep === 3
-                    ? 'bg-[#C5A880] text-[#0F2E22]'
-                    : 'bg-stone-300 dark:bg-stone-700 text-stone-700 dark:text-stone-300'
+                    ? 'bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-950 dark:hover:text-stone-200'
                 }`}
               >
-                3
-              </span>
-              <span className="hidden md:inline">Variants & Outcomes</span>
-              <span className="md:hidden">Results</span>
-            </button>
-          </nav>
-
-          {/* Doctor Note / Quick Prescribe Shortcut */}
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() =>
-                onOpenConsultationModal(
-                  activeTreatment?.name || 'General Consultation',
-                  activeVariant?.name || 'Initial Assessment',
-                  activeVariant?.name
-                )
-              }
-              className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#0F2E22] hover:bg-[#164231] text-[#E8D7BE] border border-[#C5A880]/40 shadow-sm active:scale-95 transition-all flex items-center gap-2"
-            >
-              <Stethoscope className="w-3.5 h-3.5 text-[#C5A880]" />
-              <span className="hidden sm:inline">Prescribe Note</span>
-              <span className="sm:hidden">Note</span>
-            </button>
+                <span
+                  className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${
+                    currentStep === 3
+                      ? 'bg-[#C5A880] text-[#0F2E22]'
+                      : 'bg-stone-300 dark:bg-stone-700 text-stone-700 dark:text-stone-300'
+                  }`}
+                >
+                  3
+                </span>
+                <span>Variants & Outcomes</span>
+              </button>
+            </nav>
           </div>
         </div>
       </header>
