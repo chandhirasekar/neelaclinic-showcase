@@ -1,4 +1,4 @@
-﻿import { Treatment, ClinicSettings } from '@/types';
+import { Treatment, ClinicSettings, CategoryType } from '@/types';
 
 export const CLINIC_SETTINGS: ClinicSettings = {
   name: 'Nila Clinic',
@@ -290,3 +290,12 @@ export const INITIAL_TREATMENTS: Treatment[] = [
     ]
   }
 ];
+
+export function getTreatmentsByCategory(category: CategoryType): Treatment[] {
+  return INITIAL_TREATMENTS.filter(t => t.category === category);
+}
+
+export function getTreatmentById(id: string): Treatment | undefined {
+  return INITIAL_TREATMENTS.find(t => t.id === id);
+}
+

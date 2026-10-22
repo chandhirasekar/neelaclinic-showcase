@@ -1,4 +1,4 @@
-﻿import type { Metadata, Viewport } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -7,10 +7,11 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/favicon.ico' },
+      { url: '/logo-icon.svg', type: 'image/svg+xml' },
       { url: '/logo.png', sizes: '192x192', type: 'image/png' },
     ],
     apple: [
-      { url: '/logo.png' },
+      { url: '/logo-icon.svg' },
     ],
   },
 };

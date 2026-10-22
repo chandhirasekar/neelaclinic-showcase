@@ -1,4 +1,4 @@
-﻿export type CategoryType = 'skin' | 'hair';
+export type CategoryType = 'skin' | 'hair';
 
 export interface ConcernItem {
   id: string;
@@ -10,6 +10,40 @@ export interface ConcernItem {
   useIllustration?: boolean;
 }
 
+export interface VariantSpecification {
+  label: string;
+  value: string;
+}
+
+export interface TreatmentVariant {
+  id: string;
+  name: string;
+  code?: string;
+  tagline: string;
+  methodology: string;
+  sessions: string;
+  duration: string;
+  downtime: string;
+  badge?: string;
+  recommendedFor: string[];
+  specifications: VariantSpecification[];
+  inclusions: string[];
+  clinicalHighlights: string[];
+  doctorVerdict?: string;
+}
+
+export interface ClinicalCase {
+  id: string;
+  title: string;
+  patientProfile?: string;
+  timeline: string;
+  concernName: string;
+  beforeImage: string;
+  afterImage: string;
+  metrics: { label: string; value: string }[];
+  doctorNote?: string;
+}
+
 export interface Treatment {
   id: string;
   name: string;
@@ -19,6 +53,13 @@ export interface Treatment {
   order?: number;
   badge?: string;
   isGuide?: boolean;
+  code?: string;
+  variants?: TreatmentVariant[];
+  cases?: ClinicalCase[];
+  protocolSummary?: string;
+  downtimeSummary?: string;
+  sessionsSummary?: string;
+  invasiveness?: 'Non-Invasive' | 'Minimally Invasive' | 'Surgical';
 }
 
 export interface ConsultationNote {

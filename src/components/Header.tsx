@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -22,12 +22,12 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center justify-between gap-4">
           {/* Brand Logo & Name */}
           <Link href="/" className="flex items-center gap-3.5 sm:gap-4 group">
-            <div className="w-14 h-14 sm:w-[72px] sm:h-[72px] rounded-[18px] bg-white p-2 shadow-[0_4px_14px_rgba(0,0,0,0.18)] flex items-center justify-center shrink-0 overflow-hidden transition-transform group-hover:scale-102">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white p-2 shadow-[0_4px_16px_rgba(0,0,0,0.18)] flex items-center justify-center shrink-0 overflow-hidden border border-white/30 transition-all duration-200 group-hover:scale-105 group-hover:shadow-[0_6px_20px_rgba(0,0,0,0.25)]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/logo.png"
+                src="/logo-icon.svg"
                 alt="Nila Clinic Logo"
-                className="w-full h-full object-contain block"
+                className="w-full h-full object-contain block select-none"
               />
             </div>
             <div className="flex flex-col justify-center">

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -14,9 +14,9 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({ mongoConnected }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-18 py-3">
           <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-white p-1.5 shadow flex items-center justify-center overflow-hidden">
+            <div className="w-11 h-11 rounded-2xl bg-white p-1.5 shadow flex items-center justify-center overflow-hidden border border-white/20">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+              <img src="/logo-icon.svg" alt="Nila Clinic Logo" className="w-full h-full object-contain" />
             </div>
             <div>
               <div className="flex items-center gap-2">
