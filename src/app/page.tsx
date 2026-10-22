@@ -4,230 +4,272 @@ import React from 'react';
 import Link from 'next/link';
 import { INITIAL_TREATMENTS } from '@/data/treatmentsData';
 import {
-  Sparkles,
   ShieldCheck,
-  BadgeCheck,
-  FileText,
   ChevronRight,
+  ArrowRight,
+  Sparkles,
+  Microscope,
   Stethoscope
 } from 'lucide-react';
+import { AuthStatusButton } from '@/components/AuthStatusButton';
 
 export default function HomePage() {
   const hairCount = INITIAL_TREATMENTS.filter((t) => t.category === 'hair').length;
   const skinCount = INITIAL_TREATMENTS.filter((t) => t.category === 'skin').length;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF8F5] dark:bg-[#0B0F14] text-stone-900 dark:text-stone-100 transition-colors font-sans">
-      {/* Editorial Luxury Top Bar */}
-      <header className="sticky top-0 z-30 bg-[#FAF8F5]/95 dark:bg-[#0B0F14]/95 backdrop-blur-md border-b border-[#E8E2D8] dark:border-stone-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
-          {/* Row 1: Brand Crest on Left, Admin on Right */}
-          <div className="flex items-center justify-between gap-3 w-full">
-            {/* Clinic Brand Crest */}
-            <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1 border border-stone-200/80 dark:border-stone-700/80 shadow-sm flex items-center justify-center shrink-0 overflow-hidden group-hover:scale-105 transition-transform">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/logo-icon.svg"
-                  alt="Nila Clinic Logo"
-                  className="w-full h-full object-contain block select-none"
-                />
-              </div>
-              <div className="min-w-0">
-                <div className="flex items-center gap-2">
-                  <span className="font-serif-classic text-base sm:text-lg font-bold tracking-tight text-stone-900 dark:text-stone-100 whitespace-nowrap shrink-0">
-                    Nila Clinic
-                  </span>
-                  <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full bg-[#0F2E22] text-[#E8D7BE] border border-[#C5A880]/40 whitespace-nowrap shrink-0">
-                    Tablet Consultation Suite
-                  </span>
+    <div className="min-h-screen flex flex-col bg-[#07172A] text-slate-100 transition-colors font-sans select-none">
+      {/* Clinical Header: Full-Width Straight 1-Row on Desktop, 2-Tier on Tablet/Mobile */}
+      <header className="sticky top-0 z-40 bg-white/95 dark:bg-[#07172A]/95 backdrop-blur-md border-b border-[#D5E3F0] dark:border-slate-800 shadow-xs">
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5">
+          {/* DESKTOP VIEW (lg:): Full-width straight 1-row (Left Logo, Center Steps, Right Admin) */}
+          <div className="hidden lg:grid lg:grid-cols-3 lg:items-center w-full">
+            {/* Left: Brand Identity */}
+            <div className="flex items-center justify-start">
+              <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+                <div className="w-10 h-10 rounded-2xl bg-white p-1 border-2 border-[#0A66B2]/20 shadow-xs flex items-center justify-center shrink-0 overflow-hidden group-hover:border-[#0A66B2] group-hover:scale-105 transition-all">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/logo-icon.svg"
+                    alt="Nila Clinic Logo"
+                    className="w-full h-full object-contain block select-none"
+                  />
                 </div>
-                <p className="text-[10px] sm:text-[11px] text-stone-500 dark:text-stone-400 whitespace-nowrap">
-                  Aesthetic Dermatology & Trichology Excellence
-                </p>
-              </div>
-            </Link>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="font-serif-classic text-lg sm:text-xl font-bold tracking-tight text-[#084F8C] dark:text-white whitespace-nowrap">
+                      Nila Clinic
+                    </span>
+                    <span className="text-[10px] tracking-wider uppercase font-bold px-2.5 py-0.5 rounded-full bg-[#EBF4FB] text-[#0A66B2] border border-[#0A66B2]/30 whitespace-nowrap">
+                      Tablet Consultation Suite
+                    </span>
+                  </div>
+                  <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">
+                    Aesthetic Dermatology &amp; Clinical Trichology
+                  </p>
+                </div>
+              </Link>
+            </div>
 
-            {/* Admin Link - Top Right */}
-            <Link
-              href="/admin"
-              className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 transition-colors flex items-center gap-1.5 border border-stone-200 dark:border-stone-700 shrink-0 whitespace-nowrap shadow-sm"
-            >
-              <ShieldCheck className="w-4 h-4 text-[#8CC43A] shrink-0" />
-              <span className="font-semibold">Admin CMS</span>
-            </Link>
+            {/* Center: Step-by-Step Consultation Progress Rail */}
+            <div className="flex justify-center items-center">
+              <nav aria-label="Consultation Steps" className="flex items-center gap-2 bg-[#EBF4FB]/80 dark:bg-slate-900/80 p-1 sm:p-1.5 rounded-2xl border border-[#D5E3F0] dark:border-slate-800 shadow-xs">
+                <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#0A66B2] to-[#084F8C] text-white shadow-xs border border-blue-400/30 whitespace-nowrap">
+                  <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black bg-[#8CC43A] text-[#084F8C] shrink-0">
+                    1
+                  </span>
+                  <span>Patient Intake</span>
+                </div>
+                <span className="text-slate-300 dark:text-slate-700 text-xs">/</span>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium text-slate-400 dark:text-slate-500 whitespace-nowrap">
+                  <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 shrink-0">
+                    2
+                  </span>
+                  <span>Clinical Protocol</span>
+                </div>
+                <span className="text-slate-300 dark:text-slate-700 text-xs">/</span>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium text-slate-400 dark:text-slate-500 whitespace-nowrap">
+                  <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 shrink-0">
+                    3
+                  </span>
+                  <span>Concerns &amp; Outcomes</span>
+                </div>
+              </nav>
+            </div>
+
+            {/* Right: Doctor Profile Dropdown (Admin URL & Logout) */}
+            <div className="flex items-center justify-end">
+              <AuthStatusButton />
+            </div>
           </div>
 
-          {/* Row 2: Step-by-Step Progress Rail (Wrapped down & Centered) */}
-          <div className="flex justify-center w-full mt-2 sm:mt-2.5 pt-2 sm:pt-2.5 border-t border-[#E8E2D8]/60 dark:border-stone-800/60">
-            <nav aria-label="Consultation Steps" className="flex items-center gap-1.5 sm:gap-2.5 bg-stone-100/90 dark:bg-stone-900/90 p-1 sm:p-1.5 rounded-2xl border border-stone-200/90 dark:border-stone-800 shadow-sm">
-              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50 whitespace-nowrap">
-                <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-[#C5A880] text-[#0F2E22] shrink-0">
-                  1
-                </span>
-                <span>Patient Intake</span>
+          {/* TABLET & MOBILE VIEW (< lg:): 2-Tier Layout to avoid squishing */}
+          <div className="lg:hidden flex flex-col gap-2">
+            {/* Row 1: Brand on Left, Admin on Right */}
+            <div className="flex items-center justify-between gap-3 w-full">
+              <Link href="/" className="flex items-center gap-2 group shrink-0">
+                <div className="w-9 h-9 rounded-xl bg-white p-1 border-2 border-[#0A66B2]/20 shadow-xs flex items-center justify-center shrink-0 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/logo-icon.svg"
+                    alt="Nila Clinic Logo"
+                    className="w-full h-full object-contain block select-none"
+                  />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-serif-classic text-base font-bold tracking-tight text-[#084F8C] dark:text-white whitespace-nowrap">
+                      Nila Clinic
+                    </span>
+                    <span className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-[#EBF4FB] text-[#0A66B2] border border-[#0A66B2]/30 whitespace-nowrap">
+                      Tablet Suite
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">
+                    Aesthetic Dermatology &amp; Clinical Trichology
+                  </p>
+                </div>
+              </Link>
+
+              <div className="flex items-center gap-1.5">
+                <AuthStatusButton />
               </div>
-              <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium text-stone-400 whitespace-nowrap">
-                <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400 shrink-0">
-                  2
-                </span>
-                <span>Clinical Protocol</span>
-              </div>
-              <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium text-stone-400 whitespace-nowrap">
-                <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400 shrink-0">
-                  3
-                </span>
-                <span>Concerns & Outcomes</span>
-              </div>
-            </nav>
+            </div>
+
+            {/* Row 2: Centered Steps Rail */}
+            <div className="flex justify-center w-full pt-1.5 border-t border-[#D5E3F0]/70 dark:border-slate-800/70">
+              <nav aria-label="Consultation Steps" className="flex items-center gap-1.5 bg-[#EBF4FB]/80 dark:bg-slate-900/80 p-1 rounded-2xl border border-[#D5E3F0] dark:border-slate-800 shadow-xs">
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl text-[11px] font-bold bg-gradient-to-r from-[#0A66B2] to-[#084F8C] text-white shadow-xs whitespace-nowrap">
+                  <span className="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-black bg-[#8CC43A] text-[#084F8C] shrink-0">
+                    1
+                  </span>
+                  <span>Patient Intake</span>
+                </div>
+                <span className="text-slate-300 text-xs">/</span>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[11px] font-medium text-slate-400 whitespace-nowrap">
+                  <span className="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-bold bg-white text-slate-400 border border-slate-200 shrink-0">
+                    2
+                  </span>
+                  <span>Clinical Protocol</span>
+                </div>
+                <span className="text-slate-300 text-xs">/</span>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[11px] font-medium text-slate-400 whitespace-nowrap">
+                  <span className="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-bold bg-white text-slate-400 border border-slate-200 shrink-0">
+                    3
+                  </span>
+                  <span>Concerns &amp; Outcomes</span>
+                </div>
+              </nav>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Main Step 1 Content Area */}
-      <main className="flex-1 flex flex-col justify-center max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 my-auto animate-fadeIn">
-        {/* Editorial Headline */}
-        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-700 mb-3.5">
-            <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
-            <span>Step 01 / Patient Intake Focus</span>
+      {/* HERO BANNER SECTION WITH LUXURY CLINIC BACKGROUND & REAL PHOTOGRAPHY BOXES */}
+      <main className="flex-1 relative flex flex-col justify-center items-center overflow-hidden min-h-[calc(100vh-110px)] p-4 sm:p-6 lg:p-8">
+        {/* Luxury Clinic Architectural Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700"
+          style={{ backgroundImage: "url('/clinic-lounge-bg.jpg')" }}
+        />
+
+        {/* Cinematic Sapphire & Emerald Medical Gradient Overlay with Subtle Glass Blur */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#084F8C]/80 via-[#07172A]/85 to-[#07172A]/95 backdrop-blur-[3px]" />
+        
+        {/* Ambient Brand Lighting Orbs */}
+        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#8CC43A]/15 blur-3xl pointer-events-none rounded-full" />
+        <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#0A66B2]/25 blur-3xl pointer-events-none rounded-full" />
+
+        {/* Content Container */}
+        <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center my-auto py-2 sm:py-4 animate-fadeIn">
+          {/* Consultation Intake Header Pill */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/15 backdrop-blur-md text-white border border-white/25 mb-6 sm:mb-8 shadow-md">
+            <Sparkles className="w-3.5 h-3.5 text-[#8CC43A]" />
+            <span>Step 01 / Select Consultation Discipline</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#8CC43A]" />
+            <span className="text-white/85">Skin &amp; Hair Care</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-serif-classic font-bold text-stone-900 dark:text-stone-100 tracking-tight leading-tight">
-            What treatment is the patient presenting for?
-          </h1>
+          {/* TWO PRIMARY TREATMENT BOXES WITH REAL CLINICAL IMAGERY */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 w-full max-w-4xl">
+            {/* BOX 1: HAIR TREATMENTS WITH REAL TRICHOLOGY PHOTOGRAPHY */}
+            <Link
+              href="/hair"
+              className="group cursor-pointer rounded-3xl overflow-hidden shadow-2xl hover:shadow-[0_25px_60px_rgba(10,102,178,0.5)] transition-all duration-300 hover:-translate-y-2 active:scale-[0.99] border-2 border-white/30 hover:border-[#8CC43A] flex flex-col justify-between relative min-h-[400px] sm:min-h-[440px] focus:outline-none focus:ring-4 focus:ring-[#0A66B2]/40"
+            >
+              {/* Real Background Image with Smooth Hover Zoom */}
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
+                style={{ backgroundImage: "url('/hair-treatment-box.jpg')" }}
+              />
 
-          <p className="mt-3 text-stone-600 dark:text-stone-400 font-serif-cormorant text-lg sm:text-xl leading-relaxed">
-            Select the primary clinical discipline to evaluate specialized treatments, recommended concerns, and verified before-and-after photographic results.
-          </p>
-        </div>
+              {/* Dynamic Gradient Overlay for Crisp Text Legibility */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-900/20" />
+              
+              {/* Subtle Blue Brand Accent Glow */}
+              <div className="absolute inset-0 bg-[#0A66B2]/20 mix-blend-overlay group-hover:bg-[#0A66B2]/30 transition-colors" />
 
-        {/* Two Grand Clinical Portals: Hair vs Skin */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto w-full">
-          {/* HAIR RESTORATION ROUTE LINK */}
-          <Link
-            href="/hair"
-            className="group cursor-pointer p-7 sm:p-9 rounded-3xl bg-[#0F2E22] text-[#F5F2EB] shadow-2xl hover:shadow-[0_20px_50px_rgba(15,46,34,0.35)] transition-all duration-300 hover:-translate-y-1.5 active:scale-[0.99] border-2 border-[#C5A880]/50 hover:border-[#C5A880] flex flex-col justify-between relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
-          >
-            <div className="absolute top-0 right-0 w-36 h-36 bg-radial from-[#C5A880]/20 to-transparent pointer-events-none"></div>
-
-            <div>
-              {/* Discipline Crest */}
-              <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center mb-6 border border-[#C5A880]/40 group-hover:scale-105 transition-transform">
-                <svg
-                  viewBox="0 0 84 84"
-                  className="w-9 h-9 fill-none stroke-[#C5A880] stroke-[3.5] stroke-linecap-round"
-                >
-                  <path d="M24 74c-8-18 8-24 0-42s10-20 10-22M42 74c-8-18 8-24 0-42s10-20 10-22M60 74c-8-18 8-24 0-42s10-20 10-22" />
-                </svg>
-              </div>
-
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-[#C5A880]/20 text-[#E8D7BE] border border-[#C5A880]/30 mb-3">
-                <span>Trichology & Hair Restoration</span>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl font-serif-classic font-bold tracking-tight text-white">
-                Hair Treatments
-              </h2>
-
-              <p className="mt-2.5 text-sm sm:text-base text-stone-300 font-serif-cormorant leading-relaxed">
-                Hairfall control, Excell GFC, PRP hair restoration, oxygen laser therapy, dandruff scalp care, and microsurgical hair transplantation.
-              </p>
-
-              <div className="mt-5 flex flex-wrap gap-2 text-[11px] font-medium text-stone-300">
-                <span className="px-2.5 py-1 rounded-lg bg-black/30 border border-white/10">
-                  Hair Loss
+              {/* Top Header Row with Glassmorphism Badges */}
+              <div className="w-full flex items-center justify-between gap-2 p-5 sm:p-6 relative z-10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase bg-white/90 backdrop-blur-md text-[#084F8C] shadow-sm">
+                  <Microscope className="w-3.5 h-3.5 text-[#0A66B2]" />
+                  <span>Trichology Clinic</span>
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-black/30 border border-white/10">
-                  Thinning Hair
-                </span>
-                <span className="px-2.5 py-1 rounded-lg bg-black/30 border border-white/10">
-                  Excell GFC
-                </span>
-                <span className="px-2.5 py-1 rounded-lg bg-black/30 border border-white/10">
-                  Transplantation
+                <span className="px-3 py-1.5 rounded-full text-[11px] font-black bg-[#8CC43A] text-[#084F8C] shadow-sm">
+                  {hairCount} Treatments
                 </span>
               </div>
-            </div>
 
-            <div className="mt-8 pt-5 flex items-center justify-between border-t border-white/15 w-full">
-              <span className="px-4 py-2 rounded-xl text-xs font-bold bg-[#C5A880] text-[#0F2E22] group-hover:bg-[#E8D7BE] transition-colors shadow-sm">
-                Examine {hairCount} Hair Treatments
-              </span>
-              <ChevronRight className="w-5 h-5 text-[#C5A880] group-hover:translate-x-1.5 transition-transform" />
-            </div>
-          </Link>
+              {/* Bottom Card Content */}
+              <div className="p-6 sm:p-7 relative z-10 w-full flex flex-col justify-end">
+                <div className="mb-3">
+                  <h2 className="text-2xl sm:text-3xl font-serif-classic font-bold tracking-tight text-white drop-shadow-md group-hover:text-blue-100 transition-colors">
+                    Hair Treatments
+                  </h2>
+                  <p className="mt-1 text-xs sm:text-sm text-blue-100/90 font-medium tracking-wide">
+                    Restoration • Density • Scalp Care
+                  </p>
+                </div>
 
-          {/* SKIN SCIENCE ROUTE LINK */}
-          <Link
-            href="/skin"
-            className="group cursor-pointer p-7 sm:p-9 rounded-3xl bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 active:scale-[0.99] border-2 border-stone-200/90 dark:border-stone-800 hover:border-stone-400 dark:hover:border-stone-600 flex flex-col justify-between relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#0F2E22]"
-          >
-            <div>
-              {/* Discipline Crest */}
-              <div className="w-16 h-16 rounded-2xl bg-stone-100 dark:bg-stone-800 flex items-center justify-center mb-6 border border-stone-200 dark:border-stone-700 group-hover:scale-105 transition-transform">
-                <svg
-                  viewBox="0 0 84 84"
-                  className="w-9 h-9 fill-none stroke-[#0F2E22] dark:stroke-[#C5A880] stroke-[3.5] stroke-linecap-round"
-                >
-                  <path d="M42 10C28 28 20 38 20 50a22 22 0 0044 0c0-12-8-22-22-40z" />
-                  <path d="M32 52a10 10 0 0010 10" />
-                </svg>
+                {/* Tactile Action Button */}
+                <div className="pt-2">
+                  <span className="w-full py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-white text-[#084F8C] group-hover:bg-[#8CC43A] group-hover:text-[#084F8C] transition-all shadow-md flex items-center justify-center gap-2">
+                    <span>Start Hair Consultation</span>
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+                  </span>
+                </div>
+              </div>
+            </Link>
+
+            {/* BOX 2: SKIN TREATMENTS WITH REAL DERMATOLOGY PHOTOGRAPHY */}
+            <Link
+              href="/skin"
+              className="group cursor-pointer rounded-3xl overflow-hidden shadow-2xl hover:shadow-[0_25px_60px_rgba(114,169,36,0.5)] transition-all duration-300 hover:-translate-y-2 active:scale-[0.99] border-2 border-white/30 hover:border-white flex flex-col justify-between relative min-h-[400px] sm:min-h-[440px] focus:outline-none focus:ring-4 focus:ring-[#72A924]/40"
+            >
+              {/* Real Background Image with Smooth Hover Zoom */}
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
+                style={{ backgroundImage: "url('/skin-treatment-box.jpg')" }}
+              />
+
+              {/* Dynamic Gradient Overlay for Crisp Text Legibility */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-900/20" />
+              
+              {/* Subtle Green Brand Accent Glow */}
+              <div className="absolute inset-0 bg-[#72A924]/20 mix-blend-overlay group-hover:bg-[#72A924]/30 transition-colors" />
+
+              {/* Top Header Row with Glassmorphism Badges */}
+              <div className="w-full flex items-center justify-between gap-2 p-5 sm:p-6 relative z-10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase bg-white/90 backdrop-blur-md text-[#2E540C] shadow-sm">
+                  <Stethoscope className="w-3.5 h-3.5 text-[#72A924]" />
+                  <span>Dermatology Clinic</span>
+                </span>
+                <span className="px-3 py-1.5 rounded-full text-[11px] font-black bg-[#8CC43A] text-[#084F8C] shadow-sm">
+                  {skinCount} Treatments
+                </span>
               </div>
 
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-700 mb-3">
-                <span>Aesthetic Dermatology</span>
+              {/* Bottom Card Content */}
+              <div className="p-6 sm:p-7 relative z-10 w-full flex flex-col justify-end">
+                <div className="mb-3">
+                  <h2 className="text-2xl sm:text-3xl font-serif-classic font-bold tracking-tight text-white drop-shadow-md group-hover:text-green-100 transition-colors">
+                    Skin Treatments
+                  </h2>
+                  <p className="mt-1 text-xs sm:text-sm text-green-100/90 font-medium tracking-wide">
+                    Rejuvenation • Laser • Aesthetics
+                  </p>
+                </div>
+
+                {/* Tactile Action Button */}
+                <div className="pt-2">
+                  <span className="w-full py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-white text-[#2E540C] group-hover:bg-[#8CC43A] group-hover:text-[#084F8C] transition-all shadow-md flex items-center justify-center gap-2">
+                    <span>Start Skin Consultation</span>
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+                  </span>
+                </div>
               </div>
-
-              <h2 className="text-2xl sm:text-3xl font-serif-classic font-bold tracking-tight text-stone-900 dark:text-stone-100">
-                Skin Treatments
-              </h2>
-
-              <p className="mt-2.5 text-sm sm:text-base text-stone-600 dark:text-stone-400 font-serif-cormorant leading-relaxed">
-                PRP skin treatment, Glutathione IV, Oxygeno facial, Botox & Fillers, Microdermabrasion, and anti-acne scar protocols.
-              </p>
-
-              <div className="mt-5 flex flex-wrap gap-2 text-[11px] font-medium text-stone-600 dark:text-stone-400">
-                <span className="px-2.5 py-1 rounded-lg bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
-                  Wrinkles
-                </span>
-                <span className="px-2.5 py-1 rounded-lg bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
-                  Acne Scar
-                </span>
-                <span className="px-2.5 py-1 rounded-lg bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
-                  Dull Skin
-                </span>
-                <span className="px-2.5 py-1 rounded-lg bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
-                  Exfoliation
-                </span>
-              </div>
-            </div>
-
-            <div className="mt-8 pt-5 flex items-center justify-between border-t border-stone-100 dark:border-stone-800 w-full">
-              <span className="px-4 py-2 rounded-xl text-xs font-bold bg-[#0F2E22] dark:bg-stone-800 text-[#E8D7BE] group-hover:bg-[#164231] transition-colors shadow-sm">
-                Examine {skinCount} Skin Treatments
-              </span>
-              <ChevronRight className="w-5 h-5 text-stone-400 group-hover:translate-x-1.5 transition-transform" />
-            </div>
-          </Link>
-        </div>
-
-        {/* Clinical Quality Trust Badges */}
-        <div className="mt-10 text-center flex flex-wrap items-center justify-center gap-6 text-xs text-stone-500 dark:text-stone-400">
-          <span className="flex items-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-[#8CC43A]" />
-            <span>US-FDA Approved Technologies</span>
-          </span>
-          <span className="flex items-center gap-1.5">
-            <BadgeCheck className="w-4 h-4 text-[#C5A880]" />
-            <span>Board-Certified Dermatologists</span>
-          </span>
-          <span className="flex items-center gap-1.5">
-            <FileText className="w-4 h-4 text-stone-400" />
-            <span>Documented Photographic Cases</span>
-          </span>
+            </Link>
+          </div>
         </div>
       </main>
     </div>

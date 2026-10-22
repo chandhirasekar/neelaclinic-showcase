@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { Treatment, CategoryType } from '@/types';
@@ -49,6 +49,7 @@ export const TreatmentsManager: React.FC<TreatmentsManagerProps> = ({
 
     const id = editingTreatment?.id || name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
     const payload: Treatment = {
+      ...(editingTreatment || {}),
       id,
       name: name.trim(),
       category,

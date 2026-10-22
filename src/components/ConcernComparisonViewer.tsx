@@ -59,6 +59,7 @@ export const ConcernComparisonViewer: React.FC<ConcernComparisonViewerProps> = (
   concern,
   className = ''
 }) => {
+  const isHair = category === 'hair';
   const [sliderPosition, setSliderPosition] = useState<number>(50);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [viewMode, setViewMode] = useState<'slider' | 'side-by-side'>('slider');
@@ -134,8 +135,14 @@ export const ConcernComparisonViewer: React.FC<ConcernComparisonViewerProps> = (
       <div className="flex flex-wrap items-center justify-between gap-3 pb-3 mb-3 border-b border-stone-200 dark:border-stone-800">
         <div>
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wider uppercase bg-[#0F2E22] text-[#E8D7BE] border border-[#C5A880]/40">
-              <Sparkles className="w-3 h-3 text-[#C5A880]" />
+            <span
+              className={`inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-bold tracking-wider uppercase border shadow-sm ${
+                isHair
+                  ? 'bg-gradient-to-r from-[#0A66B2] to-[#084F8C] text-white border-blue-400/40'
+                  : 'bg-gradient-to-r from-[#72A924] to-[#5F921B] text-white border-lime-300/40'
+              }`}
+            >
+              <Sparkles className={`w-3 h-3 ${isHair ? 'text-[#8CC43A]' : 'text-[#D9F2AD]'}`} />
               <span>Clinical Outcome</span>
             </span>
             <span className="text-xs text-stone-500 font-medium">
@@ -154,7 +161,7 @@ export const ConcernComparisonViewer: React.FC<ConcernComparisonViewerProps> = (
             onClick={() => setViewMode('slider')}
             className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 ${
               viewMode === 'slider'
-                ? 'bg-white dark:bg-stone-700 text-[#0F2E22] dark:text-stone-100 shadow-sm'
+                ? `bg-white dark:bg-stone-700 ${isHair ? 'text-[#0A66B2]' : 'text-[#5F921B]'} shadow-sm font-bold`
                 : 'text-stone-600 dark:text-stone-400 hover:text-stone-950'
             }`}
           >
@@ -166,7 +173,7 @@ export const ConcernComparisonViewer: React.FC<ConcernComparisonViewerProps> = (
             onClick={() => setViewMode('side-by-side')}
             className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 ${
               viewMode === 'side-by-side'
-                ? 'bg-white dark:bg-stone-700 text-[#0F2E22] dark:text-stone-100 shadow-sm'
+                ? `bg-white dark:bg-stone-700 ${isHair ? 'text-[#0A66B2]' : 'text-[#5F921B]'} shadow-sm font-bold`
                 : 'text-stone-600 dark:text-stone-400 hover:text-stone-950'
             }`}
           >
@@ -220,8 +227,14 @@ export const ConcernComparisonViewer: React.FC<ConcernComparisonViewerProps> = (
             />
             {/* After Tag */}
             <div className="absolute top-3.5 right-3.5 pointer-events-none z-10">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-[#0F2E22]/90 text-[#8CC43A] backdrop-blur-md border border-[#8CC43A]/40 shadow-lg">
-                <span className="w-2 h-2 rounded-full bg-[#8CC43A] animate-pulse"></span>
+              <span
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase backdrop-blur-md border shadow-lg ${
+                  isHair
+                    ? 'bg-[#084F8C]/90 text-[#8CC43A] border-[#8CC43A]/40'
+                    : 'bg-[#5F921B]/90 text-[#D9F2AD] border-[#D9F2AD]/40'
+                }`}
+              >
+                <span className={`w-2 h-2 rounded-full animate-pulse ${isHair ? 'bg-[#8CC43A]' : 'bg-[#D9F2AD]'}`}></span>
                 <span>Post-Treatment</span>
               </span>
             </div>
@@ -250,16 +263,28 @@ export const ConcernComparisonViewer: React.FC<ConcernComparisonViewerProps> = (
               </div>
             </div>
 
-            {/* Brass / Gold Hairline Divider & Thumb */}
+            {/* Split Slider Hairline Divider & Thumb Knob */}
             <div
               className="absolute top-0 bottom-0 z-20 pointer-events-none flex items-center justify-center -translate-x-1/2"
               style={{ left: `${sliderPosition}%` }}
             >
-              <div className="w-[2.5px] h-full bg-gradient-to-b from-amber-200 via-[#C5A880] to-amber-200 shadow-[0_0_12px_rgba(197,168,128,0.7)]"></div>
-              <div className="absolute w-10 h-10 rounded-full bg-[#0F2E22] text-[#E8D7BE] border-2 border-[#C5A880] shadow-2xl flex items-center justify-center">
-                <div className="flex items-center gap-0.5">
-                  <ChevronLeft className="w-3.5 h-3.5 text-[#C5A880]" />
-                  <ChevronRight className="w-3.5 h-3.5 text-[#C5A880]" />
+              <div
+                className={`w-[2.5px] h-full ${
+                  isHair
+                    ? 'bg-gradient-to-b from-[#8CC43A] via-[#0A66B2] to-[#8CC43A] shadow-[0_0_14px_rgba(10,102,178,0.8)]'
+                    : 'bg-gradient-to-b from-[#D9F2AD] via-[#72A924] to-[#D9F2AD] shadow-[0_0_14px_rgba(114,169,36,0.8)]'
+                }`}
+              ></div>
+              <div
+                className={`absolute w-10 h-10 rounded-full border-2 shadow-2xl flex items-center justify-center ${
+                  isHair
+                    ? 'bg-gradient-to-br from-[#0A66B2] to-[#084F8C] border-[#8CC43A] text-white shadow-blue-950/50'
+                    : 'bg-gradient-to-br from-[#72A924] to-[#5F921B] border-[#D9F2AD] text-white shadow-green-950/50'
+                }`}
+              >
+                <div className="flex items-center -space-x-1">
+                  <ChevronLeft className={`w-3.5 h-3.5 ${isHair ? 'text-[#8CC43A]' : 'text-[#D9F2AD]'}`} />
+                  <ChevronRight className={`w-3.5 h-3.5 ${isHair ? 'text-[#8CC43A]' : 'text-[#D9F2AD]'}`} />
                 </div>
               </div>
             </div>
@@ -291,8 +316,14 @@ export const ConcernComparisonViewer: React.FC<ConcernComparisonViewerProps> = (
                 className="w-full h-full object-cover"
               />
               <div className="absolute top-3 right-3">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wide uppercase bg-[#0F2E22]/90 text-[#8CC43A] backdrop-blur-md border border-[#8CC43A]/40">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#8CC43A]"></span>
+                <span
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wide uppercase backdrop-blur-md border ${
+                    isHair
+                      ? 'bg-[#084F8C]/90 text-[#8CC43A] border-[#8CC43A]/40'
+                      : 'bg-[#5F921B]/90 text-[#D9F2AD] border-[#D9F2AD]/40'
+                  }`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full ${isHair ? 'bg-[#8CC43A]' : 'bg-[#D9F2AD]'}`}></span>
                   <span>Result (Post)</span>
                 </span>
               </div>
@@ -314,7 +345,11 @@ export const ConcernComparisonViewer: React.FC<ConcernComparisonViewerProps> = (
           <button
             type="button"
             onClick={() => animateTo(50)}
-            className="text-xs font-semibold px-3.5 py-1.5 rounded-xl bg-stone-200/80 hover:bg-stone-300 dark:bg-stone-750 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 transition-colors"
+            className={`text-xs font-semibold px-3.5 py-1.5 rounded-xl transition-colors border ${
+              isHair
+                ? 'bg-blue-50/70 hover:bg-blue-100 text-[#084F8C] border-blue-200 dark:bg-blue-950/30 dark:border-blue-900/50 dark:text-blue-300'
+                : 'bg-green-50/70 hover:bg-green-100 text-[#5F921B] border-green-200 dark:bg-green-950/30 dark:border-green-900/50 dark:text-green-300'
+            }`}
           >
             50 / 50 Balanced View
           </button>
@@ -331,7 +366,7 @@ export const ConcernComparisonViewer: React.FC<ConcernComparisonViewerProps> = (
       {/* Clinical Notes Card */}
       <div className="mt-4 p-4 rounded-2xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
         <div className="flex items-center gap-2 mb-1.5">
-          <CheckCircle2 className="w-4 h-4 text-[#8CC43A]" />
+          <CheckCircle2 className={`w-4 h-4 ${isHair ? 'text-[#0A66B2]' : 'text-[#72A924]'}`} />
           <span className="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300">
             Clinical Documentation Note
           </span>

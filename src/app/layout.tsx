@@ -30,8 +30,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col bg-[#F3F8FC] text-slate-900 selection:bg-[#0A66B2] selection:text-white">
+    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+      <body
+        className="min-h-full flex flex-col bg-[#F3F8FC] text-slate-900 selection:bg-[#0A66B2] selection:text-white"
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

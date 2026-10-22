@@ -151,14 +151,15 @@ export const ThreeStepConsultation: React.FC<ThreeStepConsultationProps> = ({
   const skinCount = treatments.filter((t) => t.category === 'skin').length;
 
   return (
-    <div className="w-full flex-1 flex flex-col bg-[#FAF8F5] dark:bg-[#0B0F14] text-stone-900 dark:text-stone-100 transition-colors">
-      {/* Editorial Luxury Top Bar & Step Progress Rail */}
-      <header className="sticky top-0 z-30 bg-[#FAF8F5]/95 dark:bg-[#0B0F14]/95 backdrop-blur-md border-b border-[#E8E2D8] dark:border-stone-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
-          {/* Row 1: Brand Crest on Left, Prescribe Note on Right */}
-          <div className="flex items-center justify-between gap-3 w-full">
-            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1 border border-stone-200/80 dark:border-stone-700/80 shadow-sm flex items-center justify-center shrink-0 overflow-hidden">
+    <div className="w-full flex-1 flex flex-col bg-[#F4F9FD] dark:bg-[#07172A] text-slate-800 dark:text-slate-100 transition-colors">
+      {/* Clinical Header: Full-Width Straight 1-Row on Desktop, 2-Tier on Tablet/Mobile */}
+      <header className="sticky top-0 z-30 bg-white/95 dark:bg-[#07172A]/95 backdrop-blur-md border-b border-[#D5E3F0] dark:border-slate-800 shadow-xs">
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5">
+          {/* DESKTOP VIEW (lg:): Full-width straight 1-row (Left Brand, Center Steps, Right Prescribe) */}
+          <div className="hidden lg:grid lg:grid-cols-3 lg:items-center w-full">
+            {/* Left: Brand Crest */}
+            <div className="flex items-center justify-start gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-white p-1 border-2 border-[#0A66B2]/20 shadow-xs flex items-center justify-center shrink-0 overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/logo-icon.svg"
@@ -168,21 +169,77 @@ export const ThreeStepConsultation: React.FC<ThreeStepConsultationProps> = ({
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="font-serif-classic text-sm sm:text-base font-bold tracking-tight text-stone-900 dark:text-stone-100 whitespace-nowrap shrink-0">
+                  <span className="font-serif-classic text-lg font-bold tracking-tight text-[#084F8C] dark:text-white whitespace-nowrap">
                     Nila Clinic
                   </span>
-                  <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full bg-[#0F2E22] text-[#E8D7BE] border border-[#C5A880]/40 whitespace-nowrap shrink-0">
-                    Tablet Consultation Suite
+                  <span className="text-[10px] tracking-wider uppercase font-bold px-2.5 py-0.5 rounded-full bg-[#EBF4FB] text-[#0A66B2] border border-[#0A66B2]/30 whitespace-nowrap">
+                    Tablet Suite
                   </span>
                 </div>
-                <p className="text-[10px] sm:text-[11px] text-stone-500 dark:text-stone-400 whitespace-nowrap">
-                  Aesthetic Dermatology & Trichology Excellence
+                <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">
+                  Aesthetic Dermatology &amp; Clinical Trichology
                 </p>
               </div>
             </div>
 
-            {/* Doctor Note / Quick Prescribe Shortcut - Top Right */}
-            <div className="flex items-center shrink-0">
+            {/* Center: Step-by-Step Progress Rail */}
+            <div className="flex justify-center items-center">
+              <nav aria-label="Consultation Steps" className="flex items-center gap-1.5 bg-[#EBF4FB]/80 dark:bg-slate-900/80 p-1 rounded-2xl border border-[#D5E3F0] dark:border-slate-800 shadow-xs">
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(1)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+                    currentStep === 1
+                      ? 'bg-gradient-to-r from-[#0A66B2] to-[#084F8C] text-white shadow-xs'
+                      : 'text-slate-600 hover:text-[#084F8C]'
+                  }`}
+                >
+                  <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black bg-[#8CC43A] text-[#084F8C] shrink-0">
+                    1
+                  </span>
+                  <span>Intake</span>
+                </button>
+
+                <span className="text-slate-300 text-xs">/</span>
+
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(2)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+                    currentStep === 2
+                      ? 'bg-gradient-to-r from-[#0A66B2] to-[#084F8C] text-white shadow-xs'
+                      : 'text-slate-600 hover:text-[#084F8C]'
+                  }`}
+                >
+                  <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black bg-[#8CC43A] text-[#084F8C] shrink-0">
+                    2
+                  </span>
+                  <span>Protocol</span>
+                </button>
+
+                <span className="text-slate-300 text-xs">/</span>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (activeTreatment) setCurrentStep(3);
+                  }}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+                    currentStep === 3
+                      ? 'bg-gradient-to-r from-[#0A66B2] to-[#084F8C] text-white shadow-xs'
+                      : 'text-slate-600 hover:text-[#084F8C]'
+                  }`}
+                >
+                  <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black bg-[#8CC43A] text-[#084F8C] shrink-0">
+                    3
+                  </span>
+                  <span>Outcomes</span>
+                </button>
+              </nav>
+            </div>
+
+            {/* Right: Prescribe Doctor Note Button */}
+            <div className="flex items-center justify-end">
               <button
                 type="button"
                 onClick={() =>
@@ -192,92 +249,99 @@ export const ThreeStepConsultation: React.FC<ThreeStepConsultationProps> = ({
                     activeVariant?.name
                   )
                 }
-                className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-bold bg-[#0F2E22] hover:bg-[#164231] text-[#E8D7BE] border border-[#C5A880]/40 shadow-sm active:scale-95 transition-all flex items-center gap-2 shrink-0 whitespace-nowrap"
+                className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#0A66B2] to-[#084F8C] hover:from-[#084F8C] hover:to-[#05355E] text-white border border-blue-400/30 shadow-xs active:scale-95 transition-all flex items-center gap-2 shrink-0 whitespace-nowrap"
               >
-                <Stethoscope className="w-3.5 h-3.5 text-[#C5A880] shrink-0" />
+                <Stethoscope className="w-4 h-4 text-[#8CC43A] shrink-0" />
                 <span>Prescribe Doctor Note</span>
               </button>
             </div>
           </div>
 
-          {/* Row 2: Step-by-Step Progress Rail (Wrapped down & Centered) */}
-          <div className="flex justify-center w-full mt-2 sm:mt-2.5 pt-2 sm:pt-2.5 border-t border-[#E8E2D8]/60 dark:border-stone-800/60">
-            <nav
-              aria-label="Consultation Steps"
-              className="flex items-center gap-1.5 sm:gap-2.5 bg-stone-100/90 dark:bg-stone-900/90 p-1 sm:p-1.5 rounded-2xl border border-stone-200/90 dark:border-stone-800 shadow-sm"
-            >
-              {/* Step 1 Pill */}
+          {/* TABLET & MOBILE VIEW (< lg:): 2-Tier Layout */}
+          <div className="lg:hidden flex flex-col gap-2">
+            {/* Row 1: Brand on Left, Prescribe on Right */}
+            <div className="flex items-center justify-between gap-3 w-full">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-white p-1 border border-[#0A66B2]/20 shadow-xs flex items-center justify-center shrink-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/logo-icon.svg"
+                    alt="Nila Clinic"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <span className="font-serif-classic text-base font-bold text-[#084F8C]">
+                  Nila Clinic
+                </span>
+              </div>
+
               <button
                 type="button"
-                onClick={() => setCurrentStep(1)}
-                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
-                  currentStep === 1
-                    ? 'bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-950 dark:hover:text-stone-200'
-                }`}
+                onClick={() =>
+                  onOpenConsultationModal(
+                    activeTreatment?.name || 'General Consultation',
+                    activeVariant?.name || 'Initial Assessment',
+                    activeVariant?.name
+                  )
+                }
+                className="px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#0A66B2] text-white flex items-center gap-1.5 shadow-xs"
               >
-                <span
-                  className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${
+                <Stethoscope className="w-3.5 h-3.5 text-[#8CC43A]" />
+                <span>Prescribe</span>
+              </button>
+            </div>
+
+            {/* Row 2: Centered Steps Rail */}
+            <div className="flex justify-center w-full pt-1.5 border-t border-[#D5E3F0]/70">
+              <nav aria-label="Consultation Steps" className="flex items-center gap-1 bg-[#EBF4FB]/80 p-1 rounded-2xl border border-[#D5E3F0] shadow-xs">
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(1)}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] font-bold ${
                     currentStep === 1
-                      ? 'bg-[#C5A880] text-[#0F2E22]'
-                      : 'bg-stone-300 dark:bg-stone-700 text-stone-700 dark:text-stone-300'
+                      ? 'bg-gradient-to-r from-[#0A66B2] to-[#084F8C] text-white shadow-xs'
+                      : 'text-slate-600'
                   }`}
                 >
-                  1
-                </span>
-                <span>Patient Intake</span>
-              </button>
-
-              <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
-
-              {/* Step 2 Pill */}
-              <button
-                type="button"
-                onClick={() => setCurrentStep(2)}
-                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
-                  currentStep === 2
-                    ? 'bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-950 dark:hover:text-stone-200'
-                }`}
-              >
-                <span
-                  className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${
+                  <span className="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-black bg-[#8CC43A] text-[#084F8C]">
+                    1
+                  </span>
+                  <span>Intake</span>
+                </button>
+                <span className="text-slate-300 text-xs">/</span>
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(2)}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] font-bold ${
                     currentStep === 2
-                      ? 'bg-[#C5A880] text-[#0F2E22]'
-                      : 'bg-stone-300 dark:bg-stone-700 text-stone-700 dark:text-stone-300'
+                      ? 'bg-gradient-to-r from-[#0A66B2] to-[#084F8C] text-white shadow-xs'
+                      : 'text-slate-600'
                   }`}
                 >
-                  2
-                </span>
-                <span>Clinical Protocol</span>
-              </button>
-
-              <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
-
-              {/* Step 3 Pill */}
-              <button
-                type="button"
-                onClick={() => {
-                  if (activeTreatment) setCurrentStep(3);
-                }}
-                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
-                  currentStep === 3
-                    ? 'bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-950 dark:hover:text-stone-200'
-                }`}
-              >
-                <span
-                  className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${
+                  <span className="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-black bg-[#8CC43A] text-[#084F8C]">
+                    2
+                  </span>
+                  <span>Protocol</span>
+                </button>
+                <span className="text-slate-300 text-xs">/</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (activeTreatment) setCurrentStep(3);
+                  }}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] font-bold ${
                     currentStep === 3
-                      ? 'bg-[#C5A880] text-[#0F2E22]'
-                      : 'bg-stone-300 dark:bg-stone-700 text-stone-700 dark:text-stone-300'
+                      ? 'bg-gradient-to-r from-[#0A66B2] to-[#084F8C] text-white shadow-xs'
+                      : 'text-slate-600'
                   }`}
                 >
-                  3
-                </span>
-                <span>Variants & Outcomes</span>
-              </button>
-            </nav>
+                  <span className="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-black bg-[#8CC43A] text-[#084F8C]">
+                    3
+                  </span>
+                  <span>Outcomes</span>
+                </button>
+              </nav>
+            </div>
           </div>
         </div>
       </header>

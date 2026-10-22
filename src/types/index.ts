@@ -80,3 +80,17 @@ export interface ClinicSettings {
   disclaimer: string;
   phone?: string;
 }
+
+export type UserRole = 'doctor' | 'staff' | 'admin';
+
+export interface User {
+  _id?: string;
+  id?: string;
+  name: string;
+  username: string;
+  role: UserRole;
+  active: boolean;
+  lastLogin?: string;
+  createdAt?: string;
+}
+

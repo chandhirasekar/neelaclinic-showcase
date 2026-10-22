@@ -1,7 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { CategoryType } from '@/types';
-import { INITIAL_TREATMENTS, getTreatmentById } from '@/data/treatmentsData';
+import { getTreatmentById } from '@/lib/treatmentService';
 import { TreatmentConsultationClient } from '@/components/TreatmentConsultationClient';
 
 interface TreatmentDetailPageProps {
@@ -11,12 +11,7 @@ interface TreatmentDetailPageProps {
   }>;
 }
 
-export function generateStaticParams() {
-  return INITIAL_TREATMENTS.map((t) => ({
-    category: t.category,
-    treatmentId: t.id,
-  }));
-}
+export const dynamic = 'force-dynamic';
 
 export default async function TreatmentDetailPage({ params }: TreatmentDetailPageProps) {
   const { category, treatmentId } = await params;
@@ -25,7 +20,7 @@ export default async function TreatmentDetailPage({ params }: TreatmentDetailPag
     notFound();
   }
 
-  const treatment = getTreatmentById(treatmentId);
+  const treatment = await getTreatmentById(treatmentId);
 
   if (!treatment || treatment.category !== category) {
     notFound();

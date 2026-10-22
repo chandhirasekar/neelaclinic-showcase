@@ -2,17 +2,16 @@ import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CategoryType } from '@/types';
-import { INITIAL_TREATMENTS } from '@/data/treatmentsData';
+import { getAllTreatments } from '@/lib/treatmentService';
 import {
   ArrowLeft,
   ChevronRight,
-  Sparkles,
-  Layers,
-  Search,
-  CheckCircle2,
   ShieldCheck,
-  Stethoscope
+  Microscope,
+  Stethoscope,
+  Sparkles
 } from 'lucide-react';
+import { AuthStatusButton } from '@/components/AuthStatusButton';
 
 interface CategoryPageProps {
   params: Promise<{
@@ -20,9 +19,7 @@ interface CategoryPageProps {
   }>;
 }
 
-export function generateStaticParams() {
-  return [{ category: 'hair' }, { category: 'skin' }];
-}
+export const dynamic = 'force-dynamic';
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category } = await params;
@@ -33,30 +30,32 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const cat = category as CategoryType;
   const isHair = cat === 'hair';
-  const categoryTreatments = INITIAL_TREATMENTS.filter((t) => t.category === cat);
+  const allTreatments = await getAllTreatments();
+  const categoryTreatments = allTreatments.filter((t) => t.category === cat);
   const categoryTitle = isHair ? 'Hair Treatments' : 'Skin Treatments';
   const categorySubtitle = isHair
     ? 'Stronger, fuller, healthier hair. Select a treatment below to inspect its recommended concerns and before-and-after results.'
     : 'Clear, even, healthy skin. Select a treatment below to inspect its recommended concerns and before-and-after results.';
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF8F5] dark:bg-[#0B0F14] text-stone-900 dark:text-stone-100 transition-colors font-sans">
-      {/* Top Editorial Bar */}
-      <header className="sticky top-0 z-30 bg-[#FAF8F5]/95 dark:bg-[#0B0F14]/95 backdrop-blur-md border-b border-[#E8E2D8] dark:border-stone-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
-          {/* Row 1: Brand & Back on Left, Switcher on Right */}
-          <div className="flex items-center justify-between gap-3 w-full">
-            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+    <div className="min-h-screen flex flex-col bg-[#F4F9FD] dark:bg-[#07172A] text-slate-800 dark:text-slate-100 transition-colors font-sans select-none">
+      {/* Clinical Header: Full-Width Straight 1-Row on Desktop, 2-Tier on Tablet/Mobile */}
+      <header className="sticky top-0 z-40 bg-white/95 dark:bg-[#07172A]/95 backdrop-blur-md border-b border-[#D5E3F0] dark:border-slate-800 shadow-xs">
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5">
+          {/* DESKTOP VIEW (lg:): Full-width straight 1-row (Left Brand, Center Steps, Right Switcher) */}
+          <div className="hidden lg:grid lg:grid-cols-3 lg:items-center w-full">
+            {/* Left: Brand Identity & Back Link */}
+            <div className="flex items-center justify-start gap-3">
               <Link
                 href="/"
-                className="p-2 rounded-xl bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 transition-colors shrink-0 shadow-sm"
+                className="p-2 rounded-xl bg-slate-100 hover:bg-[#EBF4FB] text-[#0A66B2] transition-colors shrink-0 shadow-xs border border-slate-200"
                 title="Back to Patient Intake"
               >
-                <ArrowLeft className="w-4 h-4 text-[#C5A880]" />
+                <ArrowLeft className="w-4 h-4" />
               </Link>
 
-              <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1 border border-stone-200/80 dark:border-stone-700/80 shadow-sm flex items-center justify-center shrink-0 overflow-hidden group-hover:scale-105 transition-transform">
+              <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+                <div className="w-10 h-10 rounded-2xl bg-white p-1 border-2 border-[#0A66B2]/20 shadow-xs flex items-center justify-center shrink-0 overflow-hidden group-hover:border-[#0A66B2] group-hover:scale-105 transition-all">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/logo-icon.svg"
@@ -66,75 +65,144 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="font-serif-classic text-base sm:text-lg font-bold tracking-tight text-stone-900 dark:text-stone-100 whitespace-nowrap shrink-0">
+                    <span className="font-serif-classic text-lg font-bold tracking-tight text-[#084F8C] dark:text-white whitespace-nowrap">
                       Nila Clinic
                     </span>
-                    <span className="text-[10px] tracking-wider uppercase font-semibold px-2.5 py-0.5 rounded-full bg-[#0F2E22] text-[#E8D7BE] border border-[#C5A880]/40 whitespace-nowrap shrink-0">
-                      Tablet Consultation Suite
+                    <span className="text-[10px] tracking-wider uppercase font-bold px-2 py-0.5 rounded-full bg-[#EBF4FB] text-[#0A66B2] border border-[#0A66B2]/30 whitespace-nowrap">
+                      Tablet Suite
                     </span>
                   </div>
-                  <p className="text-[10px] sm:text-[11px] text-stone-500 dark:text-stone-400 whitespace-nowrap">
-                    Aesthetic Dermatology & Trichology Excellence
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">
+                    Aesthetic Dermatology &amp; Clinical Trichology
                   </p>
                 </div>
               </Link>
             </div>
 
-            {/* Category Switcher Pill - Top Right */}
-            <div className="flex items-center gap-1.5 shrink-0">
+            {/* Center: Step-by-Step Consultation Progress Rail */}
+            <div className="flex justify-center items-center">
+              <nav aria-label="Consultation Steps" className="flex items-center gap-2 bg-[#EBF4FB]/80 dark:bg-slate-900/80 p-1 sm:p-1.5 rounded-2xl border border-[#D5E3F0] dark:border-slate-800 shadow-xs">
+                <Link
+                  href="/"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-[#084F8C] transition-colors whitespace-nowrap"
+                >
+                  <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black bg-[#8CC43A] text-[#084F8C] shrink-0">
+                    ✓
+                  </span>
+                  <span>Intake</span>
+                </Link>
+                <span className="text-slate-300 dark:text-slate-700 text-xs">/</span>
+                <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#0A66B2] to-[#084F8C] text-white shadow-xs border border-blue-400/30 whitespace-nowrap">
+                  <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black bg-[#8CC43A] text-[#084F8C] shrink-0">
+                    2
+                  </span>
+                  <span>Treatment Options</span>
+                </div>
+                <span className="text-slate-300 dark:text-slate-700 text-xs">/</span>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium text-slate-400 dark:text-slate-500 whitespace-nowrap">
+                  <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 shrink-0">
+                    3
+                  </span>
+                  <span>Concerns &amp; Outcomes</span>
+                </div>
+              </nav>
+            </div>
+
+            {/* Right: Switcher & Doctor Profile Dropdown */}
+            <div className="flex items-center justify-end gap-2">
               <Link
                 href={isHair ? '/skin' : '/hair'}
-                className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-700 transition-colors shrink-0 whitespace-nowrap flex items-center gap-1.5 shadow-sm"
+                className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white hover:bg-[#EBF4FB] text-[#084F8C] transition-all flex items-center gap-1.5 border border-[#D5E3F0] shrink-0 whitespace-nowrap shadow-xs hover:border-[#0A66B2]/40"
               >
                 <span>Switch to {isHair ? 'Skin' : 'Hair'} Treatments</span>
+                <ChevronRight className="w-3.5 h-3.5 text-[#72A924]" />
               </Link>
+              <AuthStatusButton />
             </div>
           </div>
 
-          {/* Row 2: Step-by-Step Progress Rail (Wrapped down & Centered) */}
-          <div className="flex justify-center w-full mt-2 sm:mt-2.5 pt-2 sm:pt-2.5 border-t border-[#E8E2D8]/60 dark:border-stone-800/60">
-            <nav aria-label="Consultation Steps" className="flex items-center gap-1.5 sm:gap-2.5 bg-stone-100/90 dark:bg-stone-900/90 p-1 sm:p-1.5 rounded-2xl border border-stone-200/90 dark:border-stone-800 shadow-sm">
-              <Link
-                href="/"
-                className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium text-stone-600 dark:text-stone-400 hover:text-stone-950 transition-colors whitespace-nowrap"
-              >
-                <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-[#C5A880] text-[#0F2E22] shrink-0">
-                  ✓
-                </span>
-                <span>Intake (Step 1)</span>
-              </Link>
-              <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
-              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#0F2E22] text-[#E8D7BE] shadow-md border border-[#C5A880]/50 whitespace-nowrap">
-                <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-[#C5A880] text-[#0F2E22] shrink-0">
-                  2
-                </span>
-                <span>Treatment Options</span>
+          {/* TABLET & MOBILE VIEW (< lg:): 2-Tier Layout */}
+          <div className="lg:hidden flex flex-col gap-2">
+            {/* Row 1: Brand on Left, Switcher on Right */}
+            <div className="flex items-center justify-between gap-3 w-full">
+              <div className="flex items-center gap-2">
+                <Link
+                  href="/"
+                  className="p-1.5 rounded-lg bg-slate-100 text-[#0A66B2] shrink-0 border border-slate-200"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                </Link>
+                <Link href="/" className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-white p-1 border border-[#0A66B2]/20 shadow-xs flex items-center justify-center shrink-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/logo-icon.svg"
+                      alt="Nila Clinic"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <span className="font-serif-classic text-base font-bold text-[#084F8C]">
+                    Nila Clinic
+                  </span>
+                </Link>
               </div>
-              <span className="text-stone-300 dark:text-stone-700 text-xs">/</span>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium text-stone-400 whitespace-nowrap">
-                <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-stone-200 dark:bg-stone-800 text-stone-500 shrink-0">
-                  3
-                </span>
-                <span>Concerns & Outcomes</span>
+
+              <div className="flex items-center gap-1.5">
+                <Link
+                  href={isHair ? '/skin' : '/hair'}
+                  className="px-2.5 py-1 rounded-xl text-[11px] font-semibold bg-white text-[#084F8C] border border-[#D5E3F0] shadow-xs"
+                >
+                  {isHair ? 'Skin' : 'Hair'}
+                </Link>
+                <AuthStatusButton />
               </div>
-            </nav>
+            </div>
+
+            {/* Row 2: Centered Steps Rail */}
+            <div className="flex justify-center w-full pt-1.5 border-t border-[#D5E3F0]/70">
+              <nav aria-label="Consultation Steps" className="flex items-center gap-1.5 bg-[#EBF4FB]/80 p-1 rounded-2xl border border-[#D5E3F0] shadow-xs">
+                <Link
+                  href="/"
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-medium text-slate-600 whitespace-nowrap"
+                >
+                  <span className="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-black bg-[#8CC43A] text-[#084F8C]">
+                    ✓
+                  </span>
+                  <span>Intake</span>
+                </Link>
+                <span className="text-slate-300 text-xs">/</span>
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl text-[11px] font-bold bg-gradient-to-r from-[#0A66B2] to-[#084F8C] text-white shadow-xs whitespace-nowrap">
+                  <span className="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-black bg-[#8CC43A] text-[#084F8C]">
+                    2
+                  </span>
+                  <span>Treatments</span>
+                </div>
+                <span className="text-slate-300 text-xs">/</span>
+                <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-medium text-slate-400 whitespace-nowrap">
+                  <span className="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-bold bg-white text-slate-400 border border-slate-200">
+                    3
+                  </span>
+                  <span>Outcomes</span>
+                </div>
+              </nav>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 animate-fadeIn">
         {/* Navigation Breadcrumb Bar */}
         <div className="flex items-center justify-between gap-4 mb-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-bold text-[#0F2E22] dark:text-[#E8D7BE] hover:underline"
+            className="inline-flex items-center gap-2 text-xs font-bold text-[#0A66B2] hover:underline"
           >
-            <ArrowLeft className="w-4 h-4 text-[#C5A880]" />
+            <ArrowLeft className="w-4 h-4" />
             <span>Back to Patient Intake (Step 1)</span>
           </Link>
 
-          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-stone-200/80 dark:bg-stone-800 text-stone-700 dark:text-stone-300">
+          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#EBF4FB] text-[#084F8C] border border-[#0A66B2]/20">
             {categoryTreatments.length} Clinical Protocols
           </span>
         </div>
@@ -142,18 +210,18 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         {/* Section Title */}
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-[#0F2E22] dark:text-[#C5A880]">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#0A66B2]">
               Step 02 / Choose Clinical Treatment
             </span>
-            <span className="text-stone-300 dark:text-stone-700">•</span>
-            <span className="text-xs text-stone-500 font-medium capitalize">
-              {cat} Category
+            <span className="text-slate-300">•</span>
+            <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">
+              {cat} Department
             </span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-serif-classic font-bold text-stone-900 dark:text-stone-100 tracking-tight">
+          <h1 className="text-2xl sm:text-4xl font-serif-classic font-bold text-slate-900 tracking-tight">
             {categoryTitle}
           </h1>
-          <p className="mt-1 text-sm sm:text-base text-stone-600 dark:text-stone-400 font-serif-cormorant text-lg sm:text-xl">
+          <p className="mt-1 text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
             {categorySubtitle}
           </p>
         </div>
@@ -164,42 +232,42 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <Link
               key={treatment.id}
               href={`/${cat}/${treatment.id}`}
-              className="w-full text-left group cursor-pointer rounded-3xl p-6 bg-white dark:bg-stone-900 border-2 border-stone-200/90 dark:border-stone-800 hover:border-[#C5A880]/80 dark:hover:border-[#C5A880]/80 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 active:scale-[0.99] flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-[#C5A880]"
+              className="w-full text-left group cursor-pointer rounded-2xl p-6 bg-white border-2 border-slate-200/90 hover:border-[#0A66B2] shadow-xs hover:shadow-xl transition-all duration-300 hover:-translate-y-1 active:scale-[0.99] flex flex-col justify-between focus:outline-none focus:ring-4 focus:ring-[#0A66B2]/20"
             >
               <div>
                 {/* Badge & Order */}
                 <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="text-[10px] font-mono font-bold tracking-wider uppercase text-stone-500 dark:text-stone-400 px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800">
+                  <span className="text-[10px] font-mono font-bold tracking-wider uppercase text-slate-500 px-2 py-0.5 rounded bg-slate-100 border border-slate-200">
                     {isHair ? `TRICH-${treatment.order || 1}` : `DERMA-${treatment.order || 1}`}
                   </span>
                   {treatment.badge && (
-                    <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#0F2E22] text-[#E8D7BE] border border-[#C5A880]/30">
+                    <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#EBF4FB] text-[#0A66B2] border border-[#0A66B2]/30">
                       {treatment.badge}
                     </span>
                   )}
                 </div>
 
                 {/* Treatment Name */}
-                <h2 className="text-xl font-serif-classic font-bold text-stone-900 dark:text-stone-100 group-hover:text-[#0F2E22] dark:group-hover:text-[#C5A880] transition-colors leading-snug">
+                <h2 className="text-xl font-serif-classic font-bold text-slate-900 group-hover:text-[#0A66B2] transition-colors leading-snug">
                   {treatment.name}
                 </h2>
 
                 {/* Doctor Note */}
-                <p className="mt-2 text-xs text-stone-600 dark:text-stone-400 line-clamp-2 leading-relaxed">
+                <p className="mt-2 text-xs text-slate-600 line-clamp-2 leading-relaxed">
                   {treatment.doctorNote ||
                     `Clinical treatment protocol for ${treatment.concerns.map(c => c.name).slice(0, 2).join(' & ')}.`}
                 </p>
 
                 {/* Concerns Count & List */}
-                <div className="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800">
-                  <span className="block text-[11px] font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-2">
+                <div className="mt-4 pt-3 border-t border-slate-100">
+                  <span className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-2">
                     Recommended For ({treatment.concerns.length} Concerns):
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {treatment.concerns.map((concern, idx) => (
                       <span
                         key={concern.id || idx}
-                        className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200/60 dark:border-stone-700/60"
+                        className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-[#F4F9FD] text-slate-700 border border-[#D5E3F0]"
                       >
                         {concern.name}
                       </span>
@@ -209,11 +277,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </div>
 
               {/* Action Strip */}
-              <div className="mt-6 pt-3 flex items-center justify-between border-t border-stone-100 dark:border-stone-800 w-full">
-                <span className="text-xs font-bold text-[#0F2E22] dark:text-[#C5A880] group-hover:underline flex items-center gap-1">
-                  <span>View Concerns & Before/After</span>
+              <div className="mt-6 pt-3 flex items-center justify-between border-t border-slate-100 w-full">
+                <span className="text-xs font-bold text-[#0A66B2] group-hover:underline flex items-center gap-1">
+                  <span>View Concerns &amp; Before/After</span>
                 </span>
-                <div className="w-7 h-7 rounded-full bg-stone-100 dark:bg-stone-800 group-hover:bg-[#0F2E22] group-hover:text-[#E8D7BE] flex items-center justify-center transition-colors">
+                <div className="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-[#0A66B2] group-hover:text-white flex items-center justify-center transition-colors">
                   <ChevronRight className="w-4 h-4" />
                 </div>
               </div>

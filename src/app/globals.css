@@ -2,24 +2,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FAF8F5;
-  --foreground: #141C24;
+  --background: #F4F9FD;
+  --foreground: #0F172A;
   --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   
-  /* Classic Medical Luxury Palette */
-  --clinic-emerald: #0F2E22;
-  --clinic-emerald-dark: #091C15;
-  --clinic-emerald-light: #164231;
-  --clinic-gold: #C5A880;
-  --clinic-gold-dark: #9E7D47;
-  --clinic-gold-light: #E8D7BE;
-  --clinic-parchment: #F5F2EB;
-  --clinic-cream: #FAF8F5;
-  --clinic-border: #E8E2D8;
+  /* Nila Clinic Logo Palette: Medical Blue & Fresh Leaf Green */
+  --clinic-blue: #0A66B2;
+  --clinic-blue-deep: #084F8C;
+  --clinic-blue-light: #EBF4FB;
+  --clinic-green: #72A924;
+  --clinic-green-fresh: #8CC43A;
+  --clinic-green-light: #F4FBEB;
+  --clinic-lime-accent: #D9F2AD;
+  --clinic-border: #D5E3F0;
   --clinic-charcoal: #1E293B;
   
-  /* Legacy tokens */
+  /* Brand tokens */
   --primary: #0A66B2;
   --primary-deep: #084F8C;
   --accent-leaf: #72A924;
@@ -30,11 +29,9 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0B0F14;
-    --foreground: #F5F7FA;
-    --clinic-parchment: #121820;
-    --clinic-cream: #0B0F14;
-    --clinic-border: #232E3C;
+    --background: #07172A;
+    --foreground: #F8FAFC;
+    --clinic-border: #1E293B;
   }
 }
 
@@ -83,5 +80,48 @@ html, body {
 
 .gold-glow-subtle {
   box-shadow: 0 4px 20px -2px rgba(197, 168, 128, 0.15), 0 0 0 1px rgba(197, 168, 128, 0.3);
+}
+
+/* Running animated dotted border with linear gradient */
+@keyframes runningBorderDotted {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.animate-border-running-dots {
+  animation: runningBorderDotted 2.8s linear infinite;
+}
+
+@keyframes pulseGlowSlow {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.015);
+  }
+}
+
+.animate-glow-pulse {
+  animation: pulseGlowSlow 4s ease-in-out infinite;
+}
+
+/* Rotating Border Beam Linear Gradient Animation */
+@keyframes borderBeamSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-border-beam {
+  animation: borderBeamSpin 4.5s linear infinite;
 }
 

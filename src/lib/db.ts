@@ -1,4 +1,4 @@
-﻿import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -30,6 +30,7 @@ export async function connectToDatabase(): Promise<typeof mongoose | null> {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      dbName: 'Neelaclinic',
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongooseInstance) => {
@@ -54,4 +55,8 @@ export async function connectToDatabase(): Promise<typeof mongoose | null> {
 
 export function isMongoConfigured(): boolean {
   return Boolean(process.env.MONGODB_URI);
+}
+
+export function isMongoConnected(): boolean {
+  return mongoose.connection?.readyState === 1;
 }

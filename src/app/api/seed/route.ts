@@ -1,13 +1,13 @@
-﻿import { NextResponse } from 'next/server';
-import { resetToDefaultTreatments } from '@/lib/treatmentService';
+import { NextResponse } from 'next/server';
+import { seedAllCollections } from '@/lib/treatmentService';
 
 export async function POST() {
   try {
-    const treatments = await resetToDefaultTreatments();
+    const result = await seedAllCollections();
     return NextResponse.json({
       success: true,
-      message: 'Successfully seeded official Nila Clinic BRD treatments and concerns',
-      count: treatments.length
+      message: 'Successfully seeded all Mongoose collections (Treatments, Consultations, and Clinic Settings)',
+      data: result,
     });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

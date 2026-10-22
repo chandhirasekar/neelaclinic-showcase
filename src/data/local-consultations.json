@@ -6,7 +6,33 @@
     "treatmentName": "Q Switch Laser",
     "concernName": "Hyper pigmentation",
     "doctorNotes": "Advised sun protection SPF 50+. Consultation completed on tablet.",
-    "id": "cn_1792608408360",
-    "createdAt": "2026-10-21T18:46:48.360Z"
+    "createdAt": "2026-10-20T18:28:31.414Z"
+  },
+  {
+    "patientName": "Rajesh Kumar",
+    "patientPhone": "+91 98412 87654",
+    "category": "hair",
+    "treatmentName": "PRP Hair Treatment",
+    "concernName": "Thinning hair",
+    "doctorNotes": "Completed initial scalp trichoscopy. Norwood Grade II. Recommended 3 PRP cycles with 4-week intervals.",
+    "createdAt": "2026-10-21T18:28:31.415Z"
+  },
+  {
+    "patientName": "Priya Sundaram",
+    "patientPhone": "+91 97908 12345",
+    "category": "skin",
+    "treatmentName": "Anti Acne Treatments",
+    "concernName": "Reduces the acne scar",
+    "doctorNotes": "Prescribed topical retinoid and scheduled session 1 chemical peel.",
+    "createdAt": "2026-10-22T12:28:31.415Z"
+  },
+  {
+    "patientName": "Ananya Nair",
+    "patientPhone": "+91 94440 56789",
+    "category": "hair",
+    "treatmentName": "Excell GFC",
+    "concernName": "Reduces hair fall",
+    "doctorNotes": "Started GFC session 1. High density follicle activation observed.",
+    "createdAt": "2026-10-22T16:28:31.415Z"
   }
 ]
